@@ -1,11 +1,10 @@
 import { getPropertyList } from './property-list.api';
-import { mapPropertiesListFromApiToVM } from './property-list.mappers';
-/* import { addPropertyRows } from './property-list.helpers'; */
+import { mapPropertyListFromApiToVM } from './property-list.mappers';
+import { addPropertyRows } from './property-list.helpers';
 
 getPropertyList().then(propertyList => {
-  const apiPropertyList = mapPropertiesListFromApiToVM(propertyList);
+  const viewModelPropertyList = mapPropertyListFromApiToVM(propertyList);
 
-  console.log(apiPropertyList)
-  /* addPropertyRows(apiPropertyList); */
+  addPropertyRows(viewModelPropertyList);
 })
 

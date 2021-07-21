@@ -1,5 +1,5 @@
-import emailImage from '../../core/content/img/email_icon.svg';
-import phoneImage from '../../core/content/img/telefono_icon.svg';
+import emailImage from 'url:../../core/content/img/email_icon.svg';
+import phoneImage from 'url:../../core/content/img/telefono_icon.svg';
 import { routes } from '../../core/router';
 
 const getImage = property => {

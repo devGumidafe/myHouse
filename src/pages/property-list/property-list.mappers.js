@@ -1,5 +1,5 @@
-export const mapPropertiesListFromApiToVM = (propertiesList) => {
-  return propertiesList.map(property => (
+export const mapPropertyListFromApiToVM = (propertyList) => {
+  return propertyList.map(property => (
     mapPropertyFromApiToVM(property)
   ))
 }
