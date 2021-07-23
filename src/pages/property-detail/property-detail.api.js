@@ -21,3 +21,13 @@ export const getEquipments = () => {
       console.log(error);
     })
 }
+
+export const insertContact = (contact) => {
+  return axios.post(`${url}/contact/`, contact)
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.log(error);
+    })
+}
