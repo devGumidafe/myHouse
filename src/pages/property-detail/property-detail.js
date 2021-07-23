@@ -1,5 +1,6 @@
 import { setPropertyValues } from './property-detail.helpers';
-import { getProperty, getEquipments, insertContact } from './property-detail.api';
+import { getProperty, insertContact } from './property-detail.api';
+import { getEquipmentList } from '../../common/api/api'
 import { mapPropertyDetailToApiFromVM } from './property-detail.mappers';
 import { formValidation } from './property-detail.validations';
 import { onUpdateField, onSubmitForm, onSetError, onSetFormErrors, onSetValues } from '../../common/helpers/element.helpers';
@@ -7,7 +8,7 @@ import { history } from '../../core/router/history';
 
 const { id: propertyId } = history.getParams();
 
-Promise.all([getProperty(propertyId), getEquipments()])
+Promise.all([getProperty(propertyId), getEquipmentList()])
   .then(([property, equimentList]) => {
     loadProperty(property, equimentList);
   })

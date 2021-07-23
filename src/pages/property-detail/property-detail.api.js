@@ -12,16 +12,6 @@ export const getProperty = (propertyId) => {
     })
 }
 
-export const getEquipments = () => {
-  return axios.get(`${url}/equipments`)
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      console.log(error);
-    })
-}
-
 export const insertContact = (contact) => {
   return axios.post(`${url}/contact/`, contact)
     .then(response => {
