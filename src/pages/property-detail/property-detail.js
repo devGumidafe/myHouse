@@ -51,7 +51,7 @@ onSubmitForm('contact-button', () => {
     onSetFormErrors(result);
 
     if (result.succeeded) {
-      insertContact(contact).then(resutl => {
+      insertContact(contact).then(result => {
         alert('Mensaje enviado con éxito');
         onSetValues(contact = { email: '', message: '' });
       })

@@ -5,7 +5,7 @@ const validationSchema = {
     title: [
       {
         validator: Validators.required,
-        message: 'Email no válido'
+        message: 'Campo requerido'
       },
       {
         validator: Validators.minLength,
@@ -16,7 +16,7 @@ const validationSchema = {
     notes: [
       {
         validator: Validators.required,
-        message: 'Email no válido'
+        message: 'Campo requerido'
       },
       {
         validator: Validators.minLength,
@@ -46,7 +46,8 @@ const validationSchema = {
       },
       {
         validator: Validators.pattern,
-        customArgs: { pattern: /^(7|8|9)\d{9}$/ }
+        customArgs: { pattern: /^(7|8|9)\d{9}$/ },
+        message: 'Teléfono no válido'
       }
     ],
     price: [
@@ -60,7 +61,7 @@ const validationSchema = {
         message: 'Precio no válido'
       }
     ],
-    saleTypeIds: [
+    saleType: [
       {
         validator: Validators.required,
         message: 'Campo requerido'
@@ -98,7 +99,7 @@ const validationSchema = {
         message: 'El tamaño máximo son {{length}} caracteres'
       }
     ],
-    provinceId: [
+    province: [
       {
         validator: Validators.required,
         message: 'Campo requerido'
@@ -112,10 +113,10 @@ const validationSchema = {
       {
         validator: Validators.pattern,
         customArgs: { pattern: /^[0-9]*$/ },
-        message: 'Valor no válido'
+        message: 'Metros cuadrados no válidos'
       }
     ],
-    room: [
+    rooms: [
       {
         validator: Validators.required,
         message: 'Campo requerido'
@@ -123,7 +124,7 @@ const validationSchema = {
       {
         validator: Validators.pattern,
         customArgs: { pattern: /^[0-9]*$/ },
-        message: 'Valor no válido'
+        message: 'Habitación no válida'
       }
     ],
     bathrooms: [
@@ -134,7 +135,7 @@ const validationSchema = {
       {
         validator: Validators.pattern,
         customArgs: { pattern: /^[0-9]*$/ },
-        message: 'Valor no válido'
+        message: 'Baño no válido'
       }
     ],
     locationUrl: [
@@ -177,7 +178,7 @@ const validationSchema = {
       customArgs: {
         minLength: 1
       },
-      message: 'Adjunte al menos una imagen',
+      message: 'Añada al menos una imagen',
     }
     ],
   }

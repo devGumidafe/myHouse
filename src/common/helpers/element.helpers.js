@@ -7,6 +7,10 @@ export const onUpdateField = (id, callback) => {
   }
 };
 
+export const onUpdateFields = values => {
+  Object.entries(values).forEach(([value]) => onUpdateField(value, { target }));
+};
+
 export const onSubmitForm = (id, callback) => {
   const element = document.getElementById(id);
   element.onclick = e => {
