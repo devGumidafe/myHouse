@@ -46,7 +46,7 @@ const validationSchema = {
       },
       {
         validator: Validators.pattern,
-        customArgs: { pattern: /^(7|8|9)\d{9}$/ },
+        customArgs: { pattern: /^(6|7|8|9)\d{9}$/ },
         message: 'Teléfono no válido'
       }
     ],
@@ -61,7 +61,7 @@ const validationSchema = {
         message: 'Precio no válido'
       }
     ],
-    saleType: [
+    saleTypes: [
       {
         validator: Validators.required,
         message: 'Campo requerido'
@@ -149,36 +149,19 @@ const validationSchema = {
         message: 'Url no válida'
       }
     ],
-    mainFeatures: [{
-      validator: Validators.array,
-      customArgs: {
-        minLength: 1,
-        maxLength: 10
-      },
-      message: 'Introduce al menos una característica',
-    }],
-    equipmentIds: [{
+    newFeature: [{
       validator: Validators.required,
       message: 'Campo requerido',
-    },
-    {
-      validator: Validators.array,
-      customArgs: {
-        minLength: 1
-      },
-      message: 'Introduzca al menos un equipamiento',
+    }
+    ],
+    equipments: [{
+      validator: Validators.required,
+      message: 'Campo requerido',
     }
     ],
     images: [{
       validator: Validators.required,
       message: 'Campo requerido',
-    },
-    {
-      validator: Validators.array,
-      customArgs: {
-        minLength: 1
-      },
-      message: 'Añada al menos una imagen',
     }
     ],
   }

@@ -1,7 +1,7 @@
 import { getEquipmentList, getProvinceList, getSaleTypeList } from '../../common/api/api';
-import { setCheckboxList, setOptionList } from './upload-property.helpers';
+import { setCheckboxList, setOptionList, onAddImage, onAddFeature, onRemoveFeature, formatDeleteFeatureButtonId } from './upload-property.helpers';
 import { formValidation } from './upload-property.validations';
-import { onUpdateField, onSubmitForm, onSetError, onSetFormErrors, onSetValues } from '../../common/helpers/element.helpers';
+import { onUpdateField, onSubmitForm, onSetError, onSetFormErrors, onAddFile } from '../../common/helpers/element.helpers';
 import { history, routes } from '../../core/router';
 
 Promise.all([getEquipmentList(), getProvinceList(), getSaleTypeList()])
@@ -17,7 +17,7 @@ let newProperty = {
   email: '',
   phone: '',
   price: '',
-  saleTypes: [],
+  saleTypes: '',
   address: '',
   city: '',
   province: '',
@@ -25,7 +25,13 @@ let newProperty = {
   rooms: '',
   bathrooms: '',
   locationUrl: '',
-  newFeature: [],
+  newFeature: '',
+  equipments: '',
+  images: ''
+}
+
+const propList = {
+  saleTypes: [],
   mainFeatures: [],
   equipments: [],
   images: []
@@ -33,14 +39,30 @@ let newProperty = {
 
 const onUpdateFields = (property) => {
   Object.entries(property).forEach(([key]) =>
-    onUpdateField(key, ({ target }) => {
+    onUpdateField(key, (event) => {
+      const value = event.target.value;
+
       newProperty = {
         ...newProperty,
-        [key]: target.value
+        [key]: value
       };
 
-      formValidation.validateField([key], newProperty[key]).then(result => {
-        onSetError([key], result);
+      formValidation.validateField(key, newProperty[key]).then(result => {
+        onSetError(key, result);
+
+        if (result.succeeded) {
+          if (
+            key === 'saleTypes' ||
+            key === 'equipments' ||
+            key === 'images'
+          ) {
+            propList[key].push(value);
+
+            onAddFile('add-image', value => {
+              onAddImage(value);
+            });
+          }
+        }
       });
     })
   );
@@ -48,16 +70,38 @@ const onUpdateFields = (property) => {
 
 onUpdateFields(newProperty);
 
+onSubmitForm('insert-feature-button', () => {
+  formValidation.validateField('newFeature', newProperty.newFeature).then(result => {
+    onSetError('newFeature', result);
+
+    if (result.succeeded) {
+      onAddFeature(newProperty.newFeature);
+      propList.mainFeatures.push(newProperty.newFeature);
+
+      propList.mainFeatures.map(myFeature => {
+        onSubmitForm(formatDeleteFeatureButtonId(myFeature), () => {
+          onRemoveFeature(myFeature);
+
+          let i = propList.mainFeatures.indexOf(myFeature);
+          propList.mainFeatures.splice(i, 1);
+        });
+      });
+    }
+  });
+});
+
 onSubmitForm('save-button', () => {
   formValidation.validateForm(newProperty).then(result => {
     onSetFormErrors(result);
 
+    console.log({ newProperty });
+    console.log({ propList });
     if (result.succeeded) {
 
-      console.log({newProperty});
-     /*  insertProperty(newProperty).then(result => {
-        history.push(routes.propertyList);
-      }) */
+      console.log({ newProperty });
+      /*  insertProperty(newProperty).then(result => {
+         history.push(routes.propertyList);
+       }) */
     }
   });
 });
