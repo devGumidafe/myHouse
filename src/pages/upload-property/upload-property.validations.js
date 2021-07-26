@@ -1,4 +1,5 @@
 import { Validators, createFormValidation } from '@lemoncode/fonk';
+import { isUrl } from '@lemoncode/fonk-is-url-validator';
 
 const validationSchema = {
   field: {
@@ -143,11 +144,10 @@ const validationSchema = {
         validator: Validators.required,
         message: 'Campo requerido'
       },
-      /* {
-        validator: Validators.pattern,
-        customArgs: { pattern: /^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$/ },
+      {
+        validator: isUrl.validator,
         message: 'Url no válida'
-      } */
+      }
     ],
     newFeature: [{
       validator: Validators.required,
