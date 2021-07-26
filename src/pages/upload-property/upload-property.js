@@ -54,7 +54,9 @@ const onUpdateFields = (property) => {
 
         if (result.succeeded) {
           if (key === 'saleTypes' || key === 'equipments') {
-            propList[key].push(value);
+            let index = propList[key].indexOf(value);
+
+            (index === -1) ? propList[key].push(value) : propList[key].splice(index, 1) ;
 
           } else if (key === 'images') {
             onAddFile('add-image', value => {
@@ -82,8 +84,8 @@ onSubmitForm('insert-feature-button', () => {
         onSubmitForm(formatDeleteFeatureButtonId(feature), () => {
           onRemoveFeature(feature);
 
-          let i = propList.mainFeatures.indexOf(feature);
-          propList.mainFeatures.splice(i, 1);
+          let index = propList.mainFeatures.indexOf(feature);
+          propList.mainFeatures.splice(index, 1);
         });
       });
     }
@@ -94,6 +96,7 @@ onSubmitForm('save-button', () => {
   formValidation.validateForm(uploadProperty).then(result => {
     onSetFormErrors(result);
 
+    console.log({propList})
     if (result.succeeded) {
       const vmProperty = mapUploadPropertyToVMFromApi(uploadProperty, propList);
 

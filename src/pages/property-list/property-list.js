@@ -1,5 +1,5 @@
 import { getPropertyList } from './property-list.api';
-import {getSaleTypeList, getProvinceList} from '../../common/api/api';
+import { getSaleTypeList, getProvinceList } from '../../common/api/api';
 import { mapPropertyListFromApiToVM, mapFilterToQueryParams } from './property-list.mappers';
 import { addPropertyRows, setOptions, clearPropertyRows } from './property-list.helpers';
 import { roomOptions, bathroomOptions, minPriceOptions, maxPriceOptions } from './property-list-constants';
@@ -8,12 +8,12 @@ import { onUpdateField, onSubmitForm } from '../../common/helpers/element.helper
 Promise.all([getPropertyList(), getSaleTypeList(), getProvinceList()])
   .then(([propertyList, saleTypeList, provinceList]) => {
     loadPropertyList(propertyList);
-    setOptions(saleTypeList, 'select-sale-type', '¿Qué venta?');
-    setOptions(provinceList, 'select-province', '¿Dónde?');
-    setOptions(roomOptions, 'select-room', '¿Habitaciones?');
-    setOptions(bathroomOptions, 'select-bathroom', '¿Cuartos de baño?');
-    setOptions(minPriceOptions, 'select-min-price', 'Min(EUR)');
-    setOptions(maxPriceOptions, 'select-max-price', 'Max(EUR)');
+    setOptions(saleTypeList, 'select-saleTypeId', '¿Qué venta?');
+    setOptions(provinceList, 'select-provinceId', '¿Dónde?');
+    setOptions(roomOptions, 'select-minRooms', '¿Habitaciones?');
+    setOptions(bathroomOptions, 'select-minBathrooms', '¿Cuartos de baño?');
+    setOptions(minPriceOptions, 'select-minPrice', 'Min(EUR)');
+    setOptions(maxPriceOptions, 'select-maxPrice', 'Max(EUR)');
   });
 
 const loadPropertyList = (propertyList) => {
@@ -30,47 +30,20 @@ let filter = {
   maxPrice: ''
 }
 
-onUpdateField('select-sale-type', ({ target }) => {
-  filter = {
-    ...filter,
-    saleTypeId: target.value
-  };
-});
+const onUpdateFields = (objectFilter) => {
+  Object.entries(objectFilter).forEach(([key]) =>
+    onUpdateField(`select-${key}`, (event) => {
+      const value = event.target.value;
 
-onUpdateField('select-province', ({ target }) => {
-  filter = {
-    ...filter,
-    provinceId: target.value
-  };
-});
+      filter = {
+        ...filter,
+        [key]: value
+      }
+    })
+  );
+}
 
-onUpdateField('select-room', ({ target }) => {
-  filter = {
-    ...filter,
-    minRooms: target.value
-  };
-});
-
-onUpdateField('select-bathroom', ({ target }) => {
-  filter = {
-    ...filter,
-    minBathrooms: target.value
-  };
-});
-
-onUpdateField('select-min-price', ({ target }) => {
-  filter = {
-    ...filter,
-    minPrice: target.value
-  };
-});
-
-onUpdateField('select-max-price', ({ target }) => {
-  filter = {
-    ...filter,
-    maxPrice: target.value
-  };
-});
+onUpdateFields(filter);
 
 onSubmitForm('search-button', () => {
   const queryParams = mapFilterToQueryParams(filter);
