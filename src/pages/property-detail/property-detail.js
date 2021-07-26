@@ -24,27 +24,24 @@ let contact = {
   message: ''
 }
 
-onUpdateField('email', ({ target }) => {
-  contact = {
-    ...contact,
-    email: target.value
-  };
+const onUpdateFields = (objectContact) => {
+  Object.entries(objectContact).forEach(([key]) =>
+    onUpdateField(key, (event) => {
+      const value = event.target.value;
 
-  formValidation.validateField('email', contact.email).then(result => {
-    onSetError('email', result);
-  });
-});
+      contact = {
+        ...contact,
+        [key]: value
+      };
 
-onUpdateField('message', ({ target }) => {
-  contact = {
-    ...contact,
-    message: target.value
-  };
+      formValidation.validateField(key, contact[key]).then(result => {
+        onSetError(key, result);
+      });
+    })
+  );
+}
 
-  formValidation.validateField('message', contact.message).then(result => {
-    onSetError('message', result);
-  });
-});
+onUpdateFields(contact);
 
 onSubmitForm('contact-button', () => {
   formValidation.validateForm(contact).then(result => {

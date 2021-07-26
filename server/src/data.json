@@ -250,6 +250,11 @@
       "email": "gumidafe@gmali.com",
       "message": "Mensaje de prueba para probar el formulario de contacto",
       "id": 1
+    },
+    {
+      "email": "sgumidafe@gmail.com",
+      "message": "Test comentario, para contactar con el propietario",
+      "id": 2
     }
   ],
   "properties": [
