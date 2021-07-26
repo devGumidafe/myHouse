@@ -46,7 +46,7 @@ const validationSchema = {
       },
       {
         validator: Validators.pattern,
-        customArgs: { pattern: /^(6|7|8|9)\d{9}$/ },
+        customArgs: { pattern: /^(6|7|8|9)\d{8}$/ },
         message: 'Teléfono no válido'
       }
     ],
@@ -64,7 +64,7 @@ const validationSchema = {
     saleTypes: [
       {
         validator: Validators.required,
-        message: 'Campo requerido'
+        message: 'Tipo de venta requerida'
       }
     ],
     address: [
@@ -102,7 +102,7 @@ const validationSchema = {
     province: [
       {
         validator: Validators.required,
-        message: 'Campo requerido'
+        message: 'Provincia requerida'
       }
     ],
     squareMeter: [
@@ -143,25 +143,25 @@ const validationSchema = {
         validator: Validators.required,
         message: 'Campo requerido'
       },
-      {
+      /* {
         validator: Validators.pattern,
         customArgs: { pattern: /^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?$/ },
         message: 'Url no válida'
-      }
+      } */
     ],
     newFeature: [{
       validator: Validators.required,
-      message: 'Campo requerido',
+      message: 'Característica basica requerida',
     }
     ],
     equipments: [{
       validator: Validators.required,
-      message: 'Campo requerido',
+      message: 'Equipamiento requerido',
     }
     ],
     images: [{
       validator: Validators.required,
-      message: 'Campo requerido',
+      message: 'Imagen requerida',
     }
     ],
   }
