@@ -8,6 +8,6 @@ export const insertProperty = (property) => {
       return response.data;
     })
     .catch(error => {
-      console.log(error);
+    console.log(error);
     })
 }
